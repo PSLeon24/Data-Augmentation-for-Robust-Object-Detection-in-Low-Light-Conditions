@@ -36,7 +36,7 @@ We use the [AI Hub Smart Yard Dataset](https://www.aihub.or.kr/aihubdata/data/vi
 ### Phase 2: Model Training
 
 -   Object Detectors:
-    -   We train two architectures: **YOLOv8** and **DETR**.
+    -   We train two architectures: **YOLOv11** and **DETR**.
     -   For each architecture, three models are trained:
         1.  `Detector_Base`: Trained only on the original GT dataset.
         2.  `Detector_CN`: Trained on GT + `Dataset_CN`.
