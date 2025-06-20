@@ -1,0 +1,15 @@
+Training/
+Validation/
+Sublabel/
+*.jpg
+*.txt
+*.json
+
+# 빌드 결과물 제외
+runs/
+*.o
+*.class
+
+# 환경 설정 파일 제외
+.env
+config/local.json
