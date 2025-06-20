@@ -1,0 +1,10 @@
+path: /SSD4/psleon/YOLOv11/data
+train: Training
+val: Validation
+nc: 5
+names:
+- 낙하작업자
+- 연기
+- 조선작업자
+- 추락작업자
+- 충돌작업자
