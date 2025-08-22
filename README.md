@@ -55,6 +55,11 @@ We conduct a comprehensive evaluation using a held-out test set to compare the p
     - **Detection:** mAP@50, mAP@50-95, Precision, and Recall.
     - **Visual Quality:** PSNR, SSIM.
 
+<img width="1340" height="1057" alt="image" src="https://github.com/user-attachments/assets/252daefe-84d6-416c-830a-2c97aac8ea27" />
+
+<img width="1127" height="887" alt="image" src="https://github.com/user-attachments/assets/374964a1-dd4b-4caf-893f-05fc94a1e3ed" />
+
+
 ## 4. Repository Structure
 
 - TBD
