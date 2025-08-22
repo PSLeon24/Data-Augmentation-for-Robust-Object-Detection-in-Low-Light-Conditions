@@ -28,6 +28,7 @@ We use the [AI Hub Smart Yard Safety Dataset](https://www.aihub.or.kr/aihubdata/
 - **Output Dataset:** The augmented low-light images are combined with the full original dataset to create the final training set, comprising 149,980 images.
 
 ### Phase 2: Model Training
+<img width="1251" height="624" alt="image" src="https://github.com/user-attachments/assets/f818092d-a090-488f-9302-bcd80e23f041" />
 
 - **Object Detector:** We use the **YOLOv11** architecture as the backbone for our object detection model.
 - **Training:** A single, robust detector (`YOLOv11_Augmented`) is trained on the combined dataset (original + augmented) created in Phase 1. The goal is to produce a model with strong generalization performance across different lighting conditions.
