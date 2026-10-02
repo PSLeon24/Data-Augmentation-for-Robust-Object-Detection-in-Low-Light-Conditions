@@ -4,6 +4,12 @@ import os
 from ultralytics import YOLO
 from glob import glob
 
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+plt.rc('font', family='NanumGothic')
+mpl.rcParams['axes.unicode_minus'] = False
+
 def inference_with_custom_model():
     """
     커스텀 학습된 YOLO 모델로 새로운 이미지에 대해 추론을 수행합니다.
@@ -13,7 +19,7 @@ def inference_with_custom_model():
     print("="*60)
 
     # --- 1. 설정값 정의 ---
-    model_path = 'runs/detect/outputs/weights/best.pt'
+    model_path = 'runs/detect/outputs_aug_50/weights/best.pt'
 
     # 추론할 이미지가 있는 폴더 경로
     image_source_path = 'Sublabel/'

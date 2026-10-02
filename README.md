@@ -62,4 +62,36 @@ We conduct a comprehensive evaluation using a held-out test set to compare the p
 
 ## 4. Repository Structure
 
-- TBD
+```
+.
+├── SmartYard/                                   # Phase 1 – low-light data augmentation (InstructPix2Pix)
+│   ├── instruct_pix2pix.py                      # first InstructPix2Pix test (timbrooks/instruct-pix2pix)
+│   ├── instruct_pix2pix_Low-Light.py            # single-image day→night conversion
+│   ├── instruct_pix2pix_Low-Light_experiment.py # prompt / parameter experiments
+│   ├── instruct_pix2pix_Low-Light_experiment_multi.py  # multi-GPU batch generation of 'light'(l) / 'heavy'(h) low-light images
+│   │                                            #   (num_inference_steps=15, image_guidance_scale=1.5, guidance_scale=7.5)
+│   └── analyze.py                               # pixel-difference map between two images
+└── YOLOv11/                                     # Phases 2–4 – training, pre-processing selection, evaluation
+    ├── data_preprocess.ipynb, data_transform.ipynb   # AI Hub annotation → YOLO format, dataset re-organisation
+    ├── data/test.ipynb, data/Validation_total/total.ipynb  # dataset checks / merged validation split
+    ├── dataset.yaml, class.md                   # 5 classes: 낙하작업자, 연기, 조선작업자, 추락작업자, 충돌작업자
+    ├── train.py, train-instruct-only.py         # YOLOv11 training (path pre-flight check + Ultralytics train);
+    │                                            #   the two versions differ only in run name / GPU ids
+    ├── validation.py                            # evaluate a trained model (model.val)
+    ├── validation_{daylight,lowlight,total}_{gamma,histogram}.py  # Phase 3/4: evaluation with Gamma / HistEq pre-processing
+    ├── validation_gamma.py, validation_histogram.py, validation_daylight.py
+    ├── validate_*.yaml                          # evaluation splits (daylight / lowlight / total × pre-processing)
+    ├── inference.py                             # inference demo
+    ├── args.yaml, results.csv                   # training config & per-epoch metrics of the released model
+    └── yolo11n.pt                               # Ultralytics YOLO11n pretrained weight (initialisation)
+```
+
+### Reproduction workflow
+
+1. **Data** – download the [AI Hub Smart Yard Safety Dataset](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&dataSetSn=71770) (not redistributed here) and convert it with `YOLOv11/data_preprocess.ipynb`.
+2. **Augmentation** – generate low-light images with `SmartYard/instruct_pix2pix_Low-Light_experiment_multi.py` and merge them with the original training set (`data_transform.ipynb`).
+3. **Training** – `python YOLOv11/train.py` with `dataset.yaml` pointing to the original or original+augmented training set (YOLO11n, 100 epochs; see `args.yaml`).
+4. **Pre-processing selection & evaluation** – run `validation_*_gamma.py` / `validation_*_histogram.py` with the matching `validate_*.yaml` to compare Gamma (γ = 0.5) and Histogram Equalization on daylight / low-light / total splits.
+
+> Note: dataset paths in the YAML files and scripts are absolute paths from the original training server (`/SSD4/psleon/YOLOv11/...`) and must be adapted.
+> Code added on 2026-10-03 from the original experiment server for reproducibility (no functional changes).
